@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     Button toggleButton;
     SeekBar seekBar;
     CountDownTimer countDownTimer;
-    long timerLimitLong;
     boolean isTimerInProgress = false;
 
 
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                timerLimitLong = Long.valueOf(i);
                 String zero = "0";
                 String timeInMins = String.valueOf(i/60);
                 int timeInSecondsInt = i%60;
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             timerText.setText("2:50");
         } else {
 
-            countDownTimer = new CountDownTimer(timerLimitLong *1000, 1000) {
+            countDownTimer = new CountDownTimer(seekBar.getProgress()*1000 + 100, 1000) {
 
                 @Override
                 public void onTick(long milliseconds) {
